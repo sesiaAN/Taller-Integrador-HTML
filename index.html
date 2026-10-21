@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8fc">
+  <meta name="description" content="Un mural personal de recuerdos, mariposas, flores y momentos bonitos.">
+  <title>Mi jardín de recuerdos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #43284f;
+      --muted: #796884;
+      --berry: #a44d87;
+      --pink: #f2c1da;
+      --lavender: #eee4f8;
+      --lilac: #cbb5e3;
+      --paper: #fffdfd;
+      --green: #9a668e;
+      --line: rgba(99, 62, 111, .15);
+      --shadow: 0 18px 45px rgba(81, 49, 80, .14);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at 8% 8%, rgba(255, 209, 228, .65), transparent 29rem),
+        radial-gradient(ellipse at 93% 34%, rgba(220, 205, 239, .66), transparent 30rem),
+        radial-gradient(ellipse at 48% 82%, rgba(255, 230, 241, .38), transparent 27rem),
+        #fff8fc;
+      font-family: "DM Sans", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+    button { color: inherit; font: inherit; }
+    button:focus-visible, a:focus-visible { outline: 3px solid #9b4e9b; outline-offset: 4px; }
+    .shell { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 82px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-size: .93rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+    .brand-mark {
+      display: grid;
+      width: 34px;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1px solid rgba(166, 59, 120, .2);
+      border-radius: 50%;
+      background: #fff;
+      color: var(--berry);
+      font-size: 1.05rem;
+    }
+    .nav { display: flex; align-items: center; gap: 30px; }
+    .nav a {
+      color: var(--muted);
+      font-size: .88rem;
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+    .nav a:hover { color: var(--berry); }
+    .nav .nav-contact {
+      padding: 9px 16px;
+      border: 1px solid rgba(166, 59, 120, .25);
+      border-radius: 999px;
+      color: var(--berry);
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 52px;
+      min-height: 610px;
+      padding: 65px 0 78px;
+    }
+    .hero::before, .hero::after {
+      position: absolute;
+      z-index: -1;
+      color: rgba(164, 77, 135, .16);
+      font-size: 4.6rem;
+      pointer-events: none;
+    }
+    .hero::before { top: 45px; left: 42%; content: "✿"; transform: rotate(-18deg); }
+    .hero::after { right: 1%; bottom: 24px; content: "❀"; font-size: 3.3rem; transform: rotate(16deg); }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 17px;
+      color: var(--berry);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { width: 24px; height: 1px; background: currentColor; content: ""; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 610px;
+      margin-bottom: 18px;
+      font-family: "Caveat", cursive;
+      font-size: clamp(3.8rem, 7vw, 6.3rem);
+      font-weight: 600;
+      letter-spacing: 0;
+      line-height: .93;
+    }
+    h1 span { color: var(--berry); white-space: nowrap; }
+    h1 .title-flourish { color: #9c77bd; white-space: normal; }
+    .hero-copy > p:not(.eyebrow) { max-width: 450px; margin-bottom: 27px; color: var(--muted); }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 15px; }
+    .button {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 19px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      background: var(--berry);
+      color: white;
+      font-size: .88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); background: #88305f; }
+    .text-link { color: var(--muted); font-size: .88rem; text-decoration: none; }
+    .text-link:hover { color: var(--berry); }
+
+    .photo-stage {
+      position: relative;
+      display: grid;
+      min-height: 410px;
+      place-items: center;
+    }
+    .photo-stage::before {
+      position: absolute;
+      inset: 32px 8% 26px;
+      border: 1px dashed rgba(164, 77, 135, .24);
+      border-radius: 48% 52% 45% 55%;
+      content: "";
+      transform: rotate(-8deg);
+    }
+    .photo-frame {
+      position: relative;
+      width: min(78%, 340px);
+      padding: 12px 12px 46px;
+      transform: rotate(3deg);
+      background: white;
+      box-shadow: var(--shadow);
+    }
+    .photo-frame::before {
+      position: absolute;
+      z-index: 1;
+      top: -13px;
+      left: 50%;
+      width: 90px;
+      height: 26px;
+      transform: translateX(-50%) rotate(-4deg);
+      background: rgba(232, 190, 214, .7);
+      content: "";
+    }
+    .photo-frame img { display: block; width: 100%; height: 330px; object-fit: cover; }
+    .photo-frame figcaption {
+      position: absolute;
+      right: 10px;
+      bottom: 7px;
+      left: 10px;
+      color: var(--muted);
+      font-family: "Caveat", cursive;
+      font-size: 1.55rem;
+      text-align: center;
+    }
+    .sticker {
+      position: absolute;
+      z-index: 2;
+      display: grid;
+      width: 58px;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1px solid rgba(166, 59, 120, .12);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .88);
+      box-shadow: 0 8px 22px rgba(81, 49, 80, .1);
+      color: var(--berry);
+      font-size: 1.7rem;
+      animation: drift 5s ease-in-out infinite;
+    }
+    .sticker-one { top: 34px; right: 4%; }
+    .sticker-two { bottom: 48px; left: 3%; animation-delay: -2s; }
+    .sticker-three { top: 27%; left: 5%; width: 43px; border: 0; background: transparent; box-shadow: none; font-size: 1.4rem; animation-delay: -3s; }
+    .note {
+      position: absolute;
+      right: 0;
+      bottom: 38px;
+      padding: 12px 18px;
+      transform: rotate(-5deg);
+      background: #fff1c8;
+      box-shadow: 0 8px 22px rgba(81, 49, 80, .1);
+      font-family: "Caveat", cursive;
+      font-size: 1.35rem;
+    }
+    @keyframes drift { 50% { transform: translateY(-9px) rotate(7deg); } }
+
+    .section { padding: 78px 0; }
+    .section-heading { max-width: 610px; margin-bottom: 30px; }
+    .section-heading h2 {
+      margin-bottom: 9px;
+      font-family: "Caveat", cursive;
+      font-size: clamp(2.8rem, 5vw, 4.15rem);
+      font-weight: 600;
+      line-height: 1;
+    }
+    .section-heading h2 span { margin-left: 10px; color: #bd8fcf; font-family: "DM Sans", sans-serif; font-size: .48em; vertical-align: .2em; }
+    .section-heading p { margin-bottom: 0; color: var(--muted); }
+    .about-wrap {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 48px;
+      align-items: center;
+      padding: 40px;
+      border: 1px solid rgba(86, 54, 94, .08);
+      border: 1px solid rgba(164, 77, 135, .15);
+      border-radius: 14px 5px 14px 5px;
+      background: rgba(255, 255, 255, .76);
+      box-shadow: 0 10px 36px rgba(81, 49, 80, .06);
+    }
+    .about-art {
+      position: relative;
+      min-height: 250px;
+      overflow: hidden;
+      border: 8px solid white;
+      border-radius: 4px;
+      background: var(--lavender);
+      box-shadow: 0 8px 22px rgba(81, 49, 80, .12);
+    }
+    .about-art img { position: absolute; width: 100%; height: 100%; object-fit: cover; }
+    .about-art span {
+      position: absolute;
+      right: 13px;
+      bottom: 13px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .9);
+      color: var(--berry);
+      font-family: "Caveat", cursive;
+      font-size: 1.2rem;
+    }
+    .about-copy h3 { margin-bottom: 10px; font-size: 1.25rem; }
+    .about-copy p { margin-bottom: 13px; color: var(--muted); }
+    .about-copy .signature { margin: 4px 0 0; color: var(--berry); font-family: "Caveat", cursive; font-size: 1.75rem; }
+
+    .gallery-section { padding-top: 42px; }
+    .gallery-top { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+    .gallery-top .section-heading { margin-bottom: 0; }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 4px; }
+    .filter {
+      min-height: 36px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .65);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: .78rem;
+      transition: background .2s ease, color .2s ease, border-color .2s ease;
+    }
+    .filter:hover, .filter[aria-pressed="true"] { border-color: var(--berry); background: var(--berry); color: white; }
+    .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px 20px; }
+    .memory {
+      overflow: hidden;
+      border: 1px solid rgba(164, 77, 135, .13);
+      border-radius: 5px;
+      background: var(--paper);
+      box-shadow: 0 10px 30px rgba(81, 49, 80, .07);
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+    .memory:nth-child(odd) { transform: rotate(-1deg); }
+    .memory:nth-child(even) { transform: rotate(1deg); }
+    .memory:hover { transform: translateY(-5px) rotate(0); box-shadow: var(--shadow); }
+    .memory[hidden] { display: none; }
+    .memory-image { position: relative; height: 218px; overflow: hidden; background: var(--lavender); }
+    .memory-image::after {
+      position: absolute;
+      right: 12px;
+      bottom: 8px;
+      color: white;
+      content: "✿";
+      font-size: 1.4rem;
+      text-shadow: 0 1px 8px rgba(67, 40, 79, .45);
+      pointer-events: none;
+    }
+    .memory-image img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+    .memory:hover .memory-image img { transform: scale(1.04); }
+    .like {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display: grid;
+      width: 39px;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .94);
+      color: var(--berry);
+      cursor: pointer;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+    .like[aria-pressed="true"] { background: var(--berry); color: white; }
+    .memory-body { padding: 17px 18px 19px; }
+    .memory-label { margin-bottom: 5px; color: var(--green); font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .memory h3 { margin-bottom: 5px; font-size: 1rem; }
+    .memory p { margin-bottom: 0; color: var(--muted); font-size: .86rem; }
+
+    .contact {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 25px;
+      overflow: hidden;
+      margin: 75px 0 48px;
+      padding: 42px 48px;
+      border: 1px solid rgba(164, 77, 135, .15);
+      border-radius: 18px 5px 18px 5px;
+      background: linear-gradient(112deg, #f8d7e5, #e7def4 72%, #f4e6f2);
+    }
+    .contact::after { position: absolute; top: -28px; right: 28%; color: rgba(166, 59, 120, .18); content: "✦"; font-size: 7rem; }
+    .contact .eyebrow { margin-bottom: 9px; }
+    .contact h2 { margin-bottom: 7px; font-family: "Caveat", cursive; font-size: 3.3rem; font-weight: 600; line-height: 1; }
+    .contact p:not(.eyebrow) { max-width: 480px; margin-bottom: 0; color: #66556d; }
+    .contact-actions { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 10px; }
+    .contact-actions .button { background: var(--ink); }
+    .contact-actions .button:hover { background: #59415f; }
+    .contact-actions .button.secondary { border-color: rgba(56, 38, 63, .25); background: rgba(255, 255, 255, .65); color: var(--ink); }
+    .contact-actions .button.secondary:hover { background: white; }
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 0 28px;
+      color: var(--muted);
+      font-size: .78rem;
+    }
+    .toast {
+      position: fixed;
+      z-index: 5;
+      right: 22px;
+      bottom: 22px;
+      padding: 12px 18px;
+      transform: translateY(20px);
+      border-radius: 5px;
+      background: var(--ink);
+      box-shadow: var(--shadow);
+      color: white;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .toast.visible { transform: translateY(0); opacity: 1; }
+
+    @media (max-width: 760px) {
+      .shell { width: min(100% - 34px, 560px); }
+      .topbar { min-height: 70px; }
+      .nav { gap: 15px; }
+      .nav a { font-size: .8rem; }
+      .nav a:first-child { display: none; }
+      .nav .nav-contact { padding: 7px 12px; }
+      .hero { grid-template-columns: 1fr; gap: 12px; min-height: 0; padding: 59px 0 57px; }
+      h1 { font-size: clamp(4rem, 15vw, 5.6rem); }
+      .photo-stage { min-height: 380px; }
+      .photo-frame { width: min(74%, 305px); }
+      .photo-frame img { height: 280px; }
+      .sticker-one { right: 6%; }
+      .sticker-two { left: 4%; }
+      .note { right: 1%; bottom: 24px; }
+      .section { padding: 53px 0; }
+      .about-wrap { grid-template-columns: 1fr; gap: 24px; padding: 20px; }
+      .about-art { min-height: 225px; }
+      .gallery-top { display: block; }
+      .filters { margin-top: 20px; }
+      .gallery { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .memory-image { height: 175px; }
+      .memory-body { padding: 13px; }
+      .contact { grid-template-columns: 1fr; margin: 47px 0 34px; padding: 30px 24px; }
+      .contact h2 { font-size: 2.9rem; }
+      .contact::after { top: 2px; right: 5%; font-size: 5rem; }
+      .footer { font-size: .72rem; }
+    }
+    @media (max-width: 430px) {
+      .shell { width: calc(100% - 28px); }
+      .brand { font-size: .82rem; }
+      .nav { gap: 10px; }
+      .nav a { font-size: .74rem; }
+      .nav .nav-contact { padding: 7px 10px; }
+      .hero-copy > p:not(.eyebrow) { font-size: .94rem; }
+      .photo-stage { min-height: 340px; }
+      .photo-frame { width: 72%; }
+      .photo-frame img { height: 250px; }
+      .sticker { width: 48px; font-size: 1.4rem; }
+      .note { bottom: 16px; font-size: 1.15rem; }
+      .gallery { grid-template-columns: 1fr; }
+      .memory-image { height: 220px; }
+      .contact-actions { align-items: flex-start; flex-direction: column; }
+      .footer { flex-direction: column; gap: 3px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell topbar">
+    <a class="brand" href="#inicio" aria-label="Mi jardín de recuerdos, inicio">
+      <span class="brand-mark" aria-hidden="true">🦋</span>
+      <span>mi jardín de recuerdos</span>
+    </a>
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#inspiracion">Mi mural</a>
+      <a class="nav-contact" href="#contacto">Contacto <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="shell hero" id="inicio" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">✿ Un rinconcito hecho con cariño ✿</p>
+        <h1 id="hero-title">Mis recuerdos<br>florecen <span class="title-flourish">aquí.</span></h1>
+        <p>Bienvenida a mi pequeño jardín: un mural de momentos especiales, sueños que van creciendo y detalles bonitos que quiero guardar para siempre.</p>
+        <div class="actions">
+          <a class="button" href="#inspiracion">Ver mis recuerdos <span aria-hidden="true">♡</span></a>
+          <a class="text-link" href="#sobre-mi">Conoce mi jardín <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="photo-stage" aria-label="Collage de mariposas y flores">
+        <span class="sticker sticker-one" aria-hidden="true">🦋</span>
+        <span class="sticker sticker-two" aria-hidden="true">🌸</span>
+        <span class="sticker sticker-three" aria-hidden="true">🦋</span>
+        <figure class="photo-frame">
+          <img src="https://images.unsplash.com/photo-1508615070457-7baeba4003ab?auto=format&fit=crop&w=900&q=85" alt="Un paisaje suave y colorido para guardar como recuerdo">
+          <figcaption>florecer también es recordar ♡</figcaption>
+        </figure>
+        <span class="note">alas nuevas, sueños nuevos ✿</span>
+      </div>
+    </section>
+
+    <section class="shell section" id="sobre-mi" aria-labelledby="about-title">
+      <div class="section-heading">
+        <p class="eyebrow">La persona detrás del mural</p>
+        <h2 id="about-title">Un poquito sobre mí <span aria-hidden="true">✿</span></h2>
+      </div>
+      <div class="about-wrap">
+        <div class="about-art">
+          <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=85" alt="Flores rosadas y blancas bajo la luz del sol" loading="lazy">
+          <span>crecer a mi ritmo</span>
+        </div>
+        <div class="about-copy">
+          <h3>¡Hola! Qué alegría tenerte en mi jardín.</h3>
+          <p>Soy una soñadora que encuentra magia en las flores, en los colores suaves y en esos momentos sencillos que se quedan cerquita del corazón.</p>
+          <p>Este mural es mi cajita de recuerdos: aquí guardo personas, lugares y pequeñas aventuras que me ayudan a crecer, igual que una mariposa que aprende a desplegar sus alas.</p>
+          <p class="signature">Con cariño, yo ♡ ✿</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell section gallery-section" id="inspiracion" aria-labelledby="gallery-title">
+      <div class="gallery-top">
+        <div class="section-heading">
+          <p class="eyebrow">Un álbum lleno de magia</p>
+          <h2 id="gallery-title">Mi mural de recuerdos <span aria-hidden="true">✿</span></h2>
+          <p>Cada flor guarda una historia; cada mariposa, un sueño que sigue creciendo.</p>
+        </div>
+        <div class="filters" role="group" aria-label="Filtrar recuerdos">
+          <button class="filter" type="button" data-filter="all" aria-pressed="true">Todo</button>
+          <button class="filter" type="button" data-filter="crear" aria-pressed="false">Crear</button>
+          <button class="filter" type="button" data-filter="naturaleza" aria-pressed="false">Naturaleza</button>
+          <button class="filter" type="button" data-filter="momentos" aria-pressed="false">Momentos</button>
+        </div>
+      </div>
+      <div class="gallery">
+        <article class="memory" data-category="crear">
+          <div class="memory-image">
+            <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=900&q=85" alt="Pinturas y materiales para crear" loading="lazy">
+            <button class="like" type="button" aria-label="Marcar como favorito: un mundo de colores" aria-pressed="false">♡</button>
+          </div>
+          <div class="memory-body">
+            <p class="memory-label">Sueños</p>
+            <h3>Un mundo de colores</h3>
+            <p>Mis ideas favoritas nacen cuando me doy permiso de imaginar.</p>
+          </div>
+        </article>
+        <article class="memory" data-category="naturaleza">
+          <div class="memory-image">
+            <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=85" alt="Ramo de flores en tonos rosados" loading="lazy">
+            <button class="like" type="button" aria-label="Marcar como favorito: flores para el alma" aria-pressed="false">♡</button>
+          </div>
+          <div class="memory-body">
+            <p class="memory-label">Naturaleza</p>
+            <h3>Flores para el alma</h3>
+            <p>Un paseo entre flores y el corazón vuelve a sonreír.</p>
+          </div>
+        </article>
+        <article class="memory" data-category="momentos">
+          <div class="memory-image">
+            <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=900&q=85" alt="Luz dorada al atardecer sobre un paisaje" loading="lazy">
+            <button class="like" type="button" aria-label="Marcar como favorito: la hora dorada" aria-pressed="false">♡</button>
+          </div>
+          <div class="memory-body">
+            <p class="memory-label">Momentos</p>
+            <h3>La hora dorada</h3>
+            <p>El cielo se pinta de sueños antes de que llegue la noche.</p>
+          </div>
+        </article>
+        <article class="memory" data-category="naturaleza">
+          <div class="memory-image">
+            <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=85" alt="Flores delicadas iluminadas por el sol" loading="lazy">
+            <button class="like" type="button" aria-label="Marcar como favorito: un jardín secreto" aria-pressed="false">♡</button>
+          </div>
+          <div class="memory-body">
+            <p class="memory-label">Naturaleza</p>
+            <h3>Mi jardín secreto</h3>
+            <p>Un lugar imaginario donde siempre es primavera.</p>
+          </div>
+        </article>
+        <article class="memory" data-category="momentos">
+          <div class="memory-image">
+            <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=900&q=85" alt="Atardecer rosado sobre un paisaje tranquilo" loading="lazy">
+            <button class="like" type="button" aria-label="Marcar como favorito: tardes para recordar" aria-pressed="false">♡</button>
+          </div>
+          <div class="memory-body">
+            <p class="memory-label">Momentos</p>
+            <h3>Tardes para recordar</h3>
+            <p>Respirar profundo y agradecer este instante.</p>
+          </div>
+        </article>
+        <article class="memory" data-category="crear">
+          <div class="memory-image">
+            <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=900&q=85" alt="Pinturas y pinceles llenos de color" loading="lazy">
+            <button class="like" type="button" aria-label="Marcar como favorito: sueños en papel" aria-pressed="false">♡</button>
+          </div>
+          <div class="memory-body">
+            <p class="memory-label">Sueños</p>
+            <h3>Sueños en papel</h3>
+            <p>Pequeñas ideas listas para echar a volar.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell contact" id="contacto" aria-labelledby="contact-title">
+      <div>
+        <p class="eyebrow">Las cosas bonitas se comparten</p>
+        <h2 id="contact-title">¿Dejamos aquí una mariposa?</h2>
+        <p>Me encantará recibir tu saludo y compartir un poquito de magia contigo.</p>
+      </div>
+      <div class="contact-actions">
+        <a class="button" href="mailto:hola@tucorreo.com">Escríbeme <span aria-hidden="true">↗</span></a>
+        <button class="button secondary" id="copy-handle" type="button" data-copy="@tuusuario">Copiar @tuusuario</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell footer">
+    <span>Hecho con cariño, pétalos y magia ✧</span>
+    <span>© <span id="year"></span> Mi jardín de recuerdos</span>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const filters = document.querySelectorAll(".filter");
+    const memories = document.querySelectorAll(".memory");
+    const toast = document.querySelector("#toast");
+    let toastTimeout;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("visible");
+      window.clearTimeout(toastTimeout);
+      toastTimeout = window.setTimeout(() => toast.classList.remove("visible"), 2200);
+    }
+
+    filters.forEach((filter) => {
+      filter.addEventListener("click", () => {
+        const selected = filter.dataset.filter;
+        filters.forEach((button) => button.setAttribute("aria-pressed", String(button === filter)));
+        memories.forEach((memory) => {
+          memory.hidden = selected !== "all" && memory.dataset.category !== selected;
+        });
+      });
+    });
+
+    document.querySelectorAll(".like").forEach((button) => {
+      button.addEventListener("click", () => {
+        const isFavorite = button.getAttribute("aria-pressed") !== "true";
+        button.setAttribute("aria-pressed", String(isFavorite));
+        button.textContent = isFavorite ? "♥" : "♡";
+        showToast(isFavorite ? "Guardado entre tus favoritos ✨" : "Quitado de tus favoritos");
+      });
+    });
+
+    document.querySelector("#copy-handle").addEventListener("click", async (event) => {
+      const handle = event.currentTarget.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(handle);
+        showToast(`${handle} copiado al portapapeles`);
+      } catch {
+        showToast(`Tu usuario de ejemplo es ${handle}`);
+      }
+    });
+
+    document.querySelector("#year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
