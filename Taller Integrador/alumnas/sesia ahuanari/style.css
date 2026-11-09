@@ -1,0 +1,399 @@
+/* ==========================================================================
+   EcoBarrio Limpio Loreto - Estilos Personalizados y Decoraciones Realistas
+   Proyecto de Conciencia Ambiental y Gestión de Residuos
+   Autora: Sesia Ahuanari - Taller Integrador / ChicasTec Loreto
+   ========================================================================== */
+
+/* Variables y Configuración de Tipografía */
+:root {
+  --color-primary: #15803d;       /* Verde bosque */
+  --color-primary-light: #22c55e; /* Verde esmeralda vivo */
+  --color-primary-dark: #14532d;  /* Verde profundo */
+  --color-accent: #059669;        /* Teal verde */
+  --color-warning: #f59e0b;       /* Ámbar advertencia */
+  --color-danger: #ef4444;        /* Rojo alerta */
+  --color-bg-warm: #fcfdfa;       /* Fondo suave */
+  --color-card-bg: #ffffff;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-accent: 'Outfit', sans-serif;
+}
+
+/* Tipografías Bonitas */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-accent {
+  font-family: var(--font-accent);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Suavizado de Scroll y Base */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: #f7faf6;
+  color: #1e293b;
+  overflow-x: hidden;
+}
+
+/* ================= FONDOS REALISTAS CON TEXTURAS DE LORETO ================= */
+
+/* Fondo 1: Río y Neblina Amazónica de Loreto */
+.bg-photo-loreto-river {
+  position: relative;
+  background-image: 
+    linear-gradient(180deg, rgba(247, 250, 246, 0.95) 0%, rgba(236, 253, 245, 0.91) 50%, rgba(247, 250, 246, 0.96) 100%),
+    url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Fondo 2: Dosel y Rayos de Sol en la Selva de Loreto */
+.bg-photo-amazon-canopy {
+  position: relative;
+  background-image: 
+    linear-gradient(135deg, rgba(6, 78, 59, 0.93) 0%, rgba(20, 83, 45, 0.91) 50%, rgba(15, 23, 42, 0.96) 100%),
+    url('https://images.unsplash.com/photo-1511497584788-87676104235f?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Fondo 3: Hojas Tropicales y Vegetación Viva */
+.bg-photo-rainforest-leaves {
+  position: relative;
+  background-image: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(240, 253, 244, 0.92) 50%, rgba(255, 255, 255, 0.96) 100%),
+    url('https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Fondo 4: Comunidad Limpia y Verde */
+.bg-photo-clean-community {
+  position: relative;
+  background-image: 
+    linear-gradient(180deg, rgba(247, 250, 246, 0.93) 0%, rgba(236, 253, 245, 0.90) 50%, rgba(247, 250, 246, 0.96) 100%),
+    url('https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Fondo 5: Minga y Acción Ciudadana */
+.bg-photo-volunteer-action {
+  position: relative;
+  background-image: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(240, 253, 244, 0.91) 50%, rgba(247, 250, 246, 0.97) 100%),
+    url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+}
+
+/* ================= DECORACIONES VISUALES Y RESPLANDOR ================= */
+
+/* Resplandor Ambiental Luminoso */
+.ambient-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.45;
+}
+
+.glow-emerald {
+  background: radial-gradient(circle, #22c55e 0%, rgba(34, 197, 94, 0) 70%);
+}
+
+.glow-teal {
+  background: radial-gradient(circle, #14b8a6 0%, rgba(20, 184, 166, 0) 70%);
+}
+
+.glow-amber {
+  background: radial-gradient(circle, #f59e0b 0%, rgba(245, 158, 11, 0) 70%);
+}
+
+/* Paneles de Vidrio Enriquecido con Bordes Orgánicos */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(34, 197, 94, 0.18);
+  box-shadow: 0 4px 20px -2px rgba(22, 101, 52, 0.06);
+}
+
+.glass-panel-rich {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(34, 197, 94, 0.22);
+  box-shadow: 0 20px 40px -15px rgba(20, 83, 45, 0.10), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  transition: all 0.3s ease;
+}
+
+.glass-panel-rich:hover {
+  border-color: rgba(34, 197, 94, 0.45);
+  box-shadow: 0 25px 45px -12px rgba(20, 83, 45, 0.16), 0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+}
+
+.glass-card-dark {
+  background: rgba(15, 23, 42, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+}
+
+/* Tarjeta con Marco Dorado Decorativo para Frases */
+.quote-card-decor {
+  position: relative;
+  border-left: 5px solid #22c55e;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(240, 253, 244, 0.95) 100%);
+  box-shadow: 0 15px 30px -10px rgba(20, 83, 45, 0.12);
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+
+.quote-card-decor::before {
+  content: "“";
+  position: absolute;
+  top: -10px;
+  right: 15px;
+  font-family: var(--font-display);
+  font-size: 6rem;
+  color: rgba(34, 197, 94, 0.12);
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* Decoración con Hoja Flotante */
+.deco-leaf-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  border: 1px solid #86efac;
+  box-shadow: 0 6px 12px -2px rgba(34, 197, 94, 0.25);
+}
+
+/* Divisores Ondulados Orgánicos */
+.wave-divider {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.wave-divider svg {
+  display: block;
+  width: 100%;
+  height: 42px;
+}
+
+/* ================= MAPA LEAFLET Y CONTROLES ================= */
+#community-map {
+  width: 100%;
+  height: 540px;
+  min-height: 440px;
+  border-radius: 1.25rem;
+  z-index: 10;
+}
+
+.map-mode-tab {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+
+.map-mode-tab:hover {
+  transform: translateY(-1px);
+}
+
+.step-card {
+  transition: all 0.25s ease;
+}
+
+.step-card:hover {
+  border-color: #16a34a;
+  background-color: #f0fdf4;
+}
+
+/* Tooltips de Leaflet Limpios y Elegantes */
+.leaflet-tooltip {
+  background: rgba(15, 23, 42, 0.94);
+  color: #ffffff;
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.leaflet-tooltip-top:before {
+  border-top-color: rgba(15, 23, 42, 0.94);
+}
+
+/* Pines Personalizados de Leaflet */
+.custom-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.custom-pin:hover {
+  transform: scale(1.18);
+}
+
+.pin-urgent {
+  background: #dc2626;
+  border: 3px solid #ffffff;
+  animation: pulse-red 2s infinite;
+}
+
+.pin-pending {
+  background: #d97706;
+  border: 3px solid #ffffff;
+  animation: pulse-amber 2.5s infinite;
+}
+
+.pin-resolved {
+  background: #16a34a;
+  border: 3px solid #ffffff;
+}
+
+.pin-recycle {
+  background: #0284c7;
+  border: 3px solid #ffffff;
+}
+
+.pin-truck {
+  background: #7c3aed;
+  border: 3px solid #ffffff;
+}
+
+@keyframes pulse-red {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.75);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(220, 38, 38, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+  }
+}
+
+@keyframes pulse-amber {
+  0% {
+    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.75);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(217, 119, 6, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
+  }
+}
+
+/* Estilo para Popups de Leaflet */
+.leaflet-popup-content-wrapper {
+  border-radius: 18px;
+  padding: 6px;
+  box-shadow: 0 25px 35px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+  font-family: var(--font-body);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.leaflet-popup-content {
+  margin: 10px 12px;
+  line-height: 1.5;
+}
+
+/* Barra de Desplazamiento Personalizada */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #86efac;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #22c55e;
+}
+
+/* Botón con brillo */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 22px rgba(34, 197, 94, 0.45);
+  transition: all 0.3s ease;
+}
+
+.btn-glow:hover {
+  box-shadow: 0 0 35px rgba(34, 197, 94, 0.75);
+  transform: translateY(-2px);
+}
+
+/* Mini juego de clasificación */
+.bin-slot {
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.bin-slot:hover {
+  transform: scale(1.03);
+}
+
+.bin-slot.active-target {
+  border-color: #22c55e !important;
+  background-color: #f0fdf4 !important;
+}
+
+/* Toast flotante */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast-msg {
+  animation: slideInRight 0.35s ease-out forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

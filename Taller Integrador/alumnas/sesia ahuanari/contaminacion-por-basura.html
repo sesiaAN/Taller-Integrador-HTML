@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoBarrio Limpio Loreto | Gestión Vecinal de Residuos - Sesia Ahuanari</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%22><text y=%2226%22 font-size=%2224%22>🌱</text></svg>">
+
+  <!-- Google Fonts: Playfair Display + Outfit + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            accent: ['Outfit', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Estilos Personalizados y Fondos Realistas -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#f7faf6] text-slate-800 antialiased selection:bg-emerald-500 selection:text-white relative">
+
+  <!-- ================= BARRA DE NAVEGACIÓN ================= -->
+  <header class="sticky top-0 z-40 glass-nav transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo y Autoría -->
+        <a href="#hero" class="flex items-center gap-3 group">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-700 via-green-600 to-emerald-500 flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 group-hover:scale-105 transition border border-emerald-400/40">
+            <span class="text-2xl">🌿</span>
+          </div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-emerald-700 block">ChicasTec Loreto &bull; Proyecto Ambiental</span>
+            <div class="flex items-center gap-2">
+              <span class="font-display font-extrabold text-xl text-slate-900 tracking-tight">EcoBarrio Loreto</span>
+              <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-300">Sesia Ahuanari &bull; Loreto</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Enlaces Principales -->
+        <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600">
+          <a href="#mapa-reportes" class="hover:text-emerald-700 transition flex items-center gap-1.5 font-bold text-emerald-800">
+            <span>📍</span> Mapa Interactivo
+          </a>
+          <a href="#horarios-rutas" class="hover:text-emerald-700 transition flex items-center gap-1.5">
+            <span>🚛</span> Horarios del Camión
+          </a>
+          <a href="#separacion-residuos" class="hover:text-emerald-700 transition flex items-center gap-1.5">
+            <span>🎥</span> Videos & Separación
+          </a>
+          <a href="#puntos-reciclaje" class="hover:text-emerald-700 transition flex items-center gap-1.5">
+            <span>♻️</span> Puntos de Reciclaje
+          </a>
+          <a href="#jornadas-limpieza" class="hover:text-emerald-700 transition flex items-center gap-1.5">
+            <span>🤝</span> Mingas Loreto
+          </a>
+        </nav>
+
+        <!-- Botón CTA Rápido -->
+        <div class="flex items-center gap-3">
+          <a href="#reportar-form" class="btn-glow px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-2 transition shadow-md shadow-emerald-600/30">
+            <span>📸</span>
+            <span>Reportar Basura en Loreto</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION CON FONDO REALISTA DE LORETO ================= -->
+  <section id="hero" class="relative overflow-hidden pt-12 pb-24 lg:pt-20 lg:pb-32">
+    
+    <!-- Imagen de Fondo Realista: Río y Bosque de Loreto al Amanecer -->
+    <div class="absolute inset-0 -z-10 overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1920&q=80" alt="Ríos limpios y selva de Loreto" class="w-full h-full object-cover scale-105 filter brightness-[0.40] contrast-[1.1]">
+      <div class="absolute inset-0 bg-gradient-to-t from-[#f7faf6] via-slate-950/70 to-slate-900/85"></div>
+      
+      <!-- Resplandor Ambiental Decorativo -->
+      <div class="ambient-glow glow-emerald w-96 h-96 top-10 left-10"></div>
+      <div class="ambient-glow glow-teal w-[30rem] h-[30rem] bottom-10 right-10"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white relative z-10">
+      <div class="max-w-3xl">
+        <!-- Badge Decorado -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-semibold backdrop-blur-md mb-6 shadow-lg shadow-emerald-900/30">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Iniciativa de Acción Ciudadana contra la Contaminación &bull; Región Loreto, Perú
+        </div>
+
+        <!-- Título Principal -->
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight text-white mb-6 drop-shadow-md">
+          Por un barrio limpio, saludable y libre de basura acumulada en Loreto.
+        </h1>
+
+        <!-- Frase de Impacto Destacada con Borde Esmerilado -->
+        <div class="p-5 sm:p-7 rounded-3xl bg-white/10 backdrop-blur-md border border-white/25 mb-8 max-w-2xl shadow-2xl relative overflow-hidden">
+          <div class="absolute -right-6 -bottom-6 text-8xl text-emerald-300/10 font-display select-none pointer-events-none">🌿</div>
+          <p class="font-display italic text-lg sm:text-xl text-emerald-100 leading-snug drop-shadow-sm">
+            “La basura que no recogemos hoy es la contaminación con la que nuestros hijos vivirán mañana. Proteger los ríos y calles de Loreto empieza en la puerta de tu hogar.”
+          </p>
+          <span class="block text-right text-xs font-bold text-emerald-300 mt-3 tracking-wide">— Campaña Comunitaria Loreto &bull; Sesia Ahuanari</span>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="#mapa-reportes" class="btn-glow px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-sm flex items-center gap-2.5 transition shadow-xl shadow-emerald-500/40">
+            <span>📍</span> Ver Mapa de Loreto & Reportar
+          </a>
+          <a href="#horarios-rutas" class="px-6 py-3.5 rounded-xl bg-white/15 hover:bg-white/25 border border-white/35 text-white font-bold text-sm backdrop-blur-md flex items-center gap-2 transition shadow-md">
+            <span>⏰</span> Horarios Exactos del Camión
+          </a>
+        </div>
+      </div>
+
+      <!-- Métricas Realistas con Efecto Cristal -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-10 border-t border-white/20">
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 shadow-lg hover:border-emerald-400 transition">
+          <span class="block font-accent text-3xl sm:text-4xl font-extrabold text-emerald-400">+140</span>
+          <span class="text-xs text-slate-200">Puntos atendidos en Loreto</span>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 shadow-lg hover:border-teal-400 transition">
+          <span class="block font-accent text-3xl sm:text-4xl font-extrabold text-teal-300">4 Rutas</span>
+          <span class="text-xs text-slate-200">Sectores sincronizados en Loreto</span>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 shadow-lg hover:border-amber-400 transition">
+          <span class="block font-accent text-3xl sm:text-4xl font-extrabold text-amber-300">4 Puntos</span>
+          <span class="text-xs text-slate-200">Estaciones de reciclaje en Loreto</span>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 shadow-lg hover:border-lime-400 transition">
+          <span id="volunteers-count-display" class="block font-accent text-3xl sm:text-4xl font-extrabold text-lime-300">+48</span>
+          <span class="text-xs text-slate-200">Vecinos en brigadas de Loreto</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divisor Ondulado Orgánico hacia la siguiente sección -->
+    <div class="wave-divider absolute bottom-0 left-0 w-full text-[#064e3b]">
+      <svg viewBox="0 0 1440 48" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 48H1440V12C1200 42 960 0 720 24C480 48 240 6 0 28V48Z" fill="currentColor"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ================= FRASES BONITAS Y CONCIENTIZACIÓN (FONDO REALISTA DE SELVA AMAZÓNICA) ================= -->
+  <section class="py-16 bg-photo-amazon-canopy text-white relative overflow-hidden">
+    
+    <!-- Luces Ambientales de Fondo -->
+    <div class="ambient-glow glow-emerald w-80 h-80 top-0 right-10"></div>
+    <div class="ambient-glow glow-amber w-80 h-80 bottom-0 left-10"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-emerald-300 bg-emerald-950/60 px-3.5 py-1 rounded-full border border-emerald-500/30 backdrop-blur">
+          Compromiso por nuestra Amazonía
+        </span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-3 drop-shadow">
+          Reflexiones para un Loreto Limpio y Consciente
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Frase 1 -->
+        <div class="p-7 rounded-3xl glass-card-dark relative flex flex-col justify-between hover:-translate-y-1.5 transition duration-300 group">
+          <div class="text-5xl text-emerald-400 font-display mb-2 select-none">“</div>
+          <p class="font-display italic text-lg text-emerald-50 leading-relaxed mb-6">
+            Un barrio limpio en Loreto no es aquel que se barre a cada hora, sino aquel donde cada vecino se hace responsable de no ensuciar.
+          </p>
+          <div class="flex items-center gap-3 pt-4 border-t border-emerald-500/30 text-xs text-emerald-300 font-bold">
+            <span class="deco-leaf-badge text-emerald-900 text-lg">🧹</span>
+            <span>Cultura Ciudadana en Loreto</span>
+          </div>
+        </div>
+
+        <!-- Frase 2 -->
+        <div class="p-7 rounded-3xl glass-card-dark relative flex flex-col justify-between hover:-translate-y-1.5 transition duration-300 group">
+          <div class="text-5xl text-emerald-400 font-display mb-2 select-none">“</div>
+          <p class="font-display italic text-lg text-emerald-50 leading-relaxed mb-6">
+            Nuestros ríos amazónicos (Itaya, Nanay y Amazonas) no son vertederos. Cada plástico que llega al agua tarda 500 años en degradarse y afecta nuestra biodiversidad.
+          </p>
+          <div class="flex items-center gap-3 pt-4 border-t border-emerald-500/30 text-xs text-emerald-300 font-bold">
+            <span class="deco-leaf-badge text-emerald-900 text-lg">💧</span>
+            <span>Protección de Cuencas de Loreto</span>
+          </div>
+        </div>
+
+        <!-- Frase 3 -->
+        <div class="p-7 rounded-3xl glass-card-dark relative flex flex-col justify-between hover:-translate-y-1.5 transition duration-300 group">
+          <div class="text-5xl text-emerald-400 font-display mb-2 select-none">“</div>
+          <p class="font-display italic text-lg text-emerald-50 leading-relaxed mb-6">
+            Sacar la basura a la hora exacta del camión en Loreto evita que las lluvias tropicales y los animales arrastren los desperdicios a las canaletas.
+          </p>
+          <div class="flex items-center gap-3 pt-4 border-t border-emerald-500/30 text-xs text-emerald-300 font-bold">
+            <span class="deco-leaf-badge text-emerald-900 text-lg">⏰</span>
+            <span>Puntualidad y Salud en Loreto</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN 1: MAPA INTERACTIVO (FONDO REALISTA DE HOJAS Y VEGETACIÓN) ================= -->
+  <section id="mapa-reportes" class="py-16 lg:py-24 bg-photo-rainforest-leaves relative overflow-hidden">
+    
+    <!-- Resplandor Ambiental -->
+    <div class="ambient-glow glow-emerald w-96 h-96 -top-20 -left-20"></div>
+    <div class="ambient-glow glow-teal w-96 h-96 -bottom-20 -right-20"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- Encabezado Principal -->
+      <div class="mb-8">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/90 text-emerald-800 text-xs font-extrabold mb-3 border border-emerald-300 shadow-sm backdrop-blur">
+          <span>📍</span> Mapa Interactivo Comunitario &bull; Región Loreto
+        </div>
+        <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Monitoreo Vecinal y Reporte de Basura en Loreto
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-2 max-w-3xl">
+          Usa el mapa interactivo para ver los puntos críticos de basura reportados por tus vecinos, consultar el paso del camión recolector o ubicar los puntos de reciclaje en Iquitos y alrededores.
+        </p>
+      </div>
+
+      <!-- Guía en 3 Pasos Sencillos con Fondos Elegantes -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="step-card glass-panel-rich p-4 rounded-2xl flex items-start gap-3">
+          <span class="w-9 h-9 rounded-xl bg-emerald-600 text-white font-extrabold flex items-center justify-center text-sm flex-shrink-0 shadow-md">1</span>
+          <div>
+            <h4 class="font-bold text-xs text-slate-900 mb-0.5">Elige qué ver en el mapa</h4>
+            <p class="text-[11px] text-slate-600 leading-relaxed">Usa las pestañas verdes para alternar entre <strong>Basura Reportada</strong>, <strong>Rutas del Camión</strong> o <strong>Ecopuntos</strong>.</p>
+          </div>
+        </div>
+        <div class="step-card glass-panel-rich p-4 rounded-2xl flex items-start gap-3">
+          <span class="w-9 h-9 rounded-xl bg-emerald-600 text-white font-extrabold flex items-center justify-center text-sm flex-shrink-0 shadow-md">2</span>
+          <div>
+            <h4 class="font-bold text-xs text-slate-900 mb-0.5">Haz clic en la calle o esquina</h4>
+            <p class="text-[11px] text-slate-600 leading-relaxed">Toca en el mapa exactamente donde viste basura acumulada para fijar el marcador de ubicación.</p>
+          </div>
+        </div>
+        <div class="step-card glass-panel-rich p-4 rounded-2xl flex items-start gap-3">
+          <span class="w-9 h-9 rounded-xl bg-emerald-600 text-white font-extrabold flex items-center justify-center text-sm flex-shrink-0 shadow-md">3</span>
+          <div>
+            <h4 class="font-bold text-xs text-slate-900 mb-0.5">Sube tu foto y publica</h4>
+            <p class="text-[11px] text-slate-600 leading-relaxed">Completa el formulario a la derecha con una foto para alertar a la cuadrilla municipal de Loreto.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra de Selección de Modos de Mapa (Glassmorphism Enriquecido) -->
+      <div class="glass-panel-rich rounded-3xl p-3.5 sm:p-4 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500 mr-1">Vistas del Mapa:</span>
+          <button type="button" onclick="setMapMode('trash')" class="map-mode-tab px-4 py-2.5 rounded-xl text-xs font-extrabold bg-emerald-700 text-white shadow-md flex items-center gap-1.5 transition" data-mode="trash">
+            <span>🗑️</span> Basura Reportada
+          </button>
+          <button type="button" onclick="setMapMode('truck')" class="map-mode-tab px-4 py-2.5 rounded-xl text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 flex items-center gap-1.5 transition" data-mode="truck">
+            <span>🚛</span> Rutas del Camión
+          </button>
+          <button type="button" onclick="setMapMode('recycle')" class="map-mode-tab px-4 py-2.5 rounded-xl text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 flex items-center gap-1.5 transition" data-mode="recycle">
+            <span>♻️</span> Puntos de Reciclaje
+          </button>
+          <button type="button" onclick="setMapMode('all')" class="map-mode-tab px-4 py-2.5 rounded-xl text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 flex items-center gap-1.5 transition" data-mode="all">
+            <span>🗺️</span> Ver Todo
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 self-end md:self-auto">
+          <button type="button" onclick="resetMapCenter()" class="px-3.5 py-2 rounded-xl bg-white hover:bg-emerald-100 hover:text-emerald-800 text-slate-700 text-xs font-bold border border-slate-300 flex items-center gap-1.5 transition shadow-sm" title="Recentrar mapa en Iquitos">
+            <span>🔄</span> Recentrar Iquitos
+          </button>
+          <button type="button" id="btn-my-location" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-md flex items-center gap-1.5 transition">
+            <span>🎯</span> Mi GPS
+          </button>
+        </div>
+      </div>
+
+      <!-- Barra de Subfiltros para Basura Reportada -->
+      <div id="trash-subfilters" class="flex flex-wrap items-center justify-between gap-3 mb-6 p-3.5 glass-panel-rich rounded-2xl">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-bold text-slate-600">Filtrar por estado:</span>
+          <button class="map-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-700 text-white shadow-sm border border-emerald-700" data-filter="all">
+            Todos (<span id="counter-all">4</span>)
+          </button>
+          <button class="map-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200" data-filter="urgent">
+            🚨 Urgentes (<span id="counter-urgent">1</span>)
+          </button>
+          <button class="map-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200" data-filter="pending">
+            ⚠️ Pendientes (<span id="counter-pending">2</span>)
+          </button>
+          <button class="map-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200" data-filter="resolved">
+            ✅ Limpiados (<span id="counter-resolved">1</span>)
+          </button>
+        </div>
+        <div class="text-[11px] text-slate-500 font-medium">
+          💡 Haz clic en los pines del mapa para ver fotos y apoyar el recojo
+        </div>
+      </div>
+
+      <!-- Grid Principal: Mapa (7 cols) + Formulario (5 cols) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Contenedor del Mapa -->
+        <div class="lg:col-span-7 flex flex-col gap-4">
+          
+          <div class="relative bg-white rounded-3xl overflow-hidden border-2 border-emerald-600/35 shadow-2xl">
+            
+            <!-- Controles de Zoom Personalizados Superiores -->
+            <div class="absolute top-4 right-4 z-20 flex flex-col gap-1 shadow-lg rounded-xl overflow-hidden border border-slate-300 bg-white/95 backdrop-blur">
+              <button onclick="mapZoomIn()" class="w-9 h-9 flex items-center justify-center font-black text-slate-800 hover:bg-emerald-50 hover:text-emerald-700 border-b border-slate-100 transition" title="Acercar">＋</button>
+              <button onclick="mapZoomOut()" class="w-9 h-9 flex items-center justify-center font-black text-slate-800 hover:bg-emerald-50 hover:text-emerald-700 transition" title="Alejar">－</button>
+            </div>
+
+            <!-- Mapa Leaflet -->
+            <div id="community-map"></div>
+
+            <!-- Barra Informativa de Estado Inferior del Mapa -->
+            <div class="bg-slate-900/95 backdrop-blur text-white p-3.5 flex flex-wrap items-center justify-between gap-3 text-xs border-t border-slate-800">
+              <div id="map-mode-desc" class="text-slate-200 font-medium">
+                <strong>Vista activa:</strong> Reportes vecinales de basura en Loreto.
+              </div>
+              <div id="map-coords-hint">
+                <span class="text-slate-400 italic">Haz clic en cualquier calle para fijar las coordenadas.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Leyenda Ordenada y Despejada -->
+          <div class="glass-panel-rich rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <span class="font-extrabold text-slate-400 uppercase tracking-wider text-[11px]">Leyenda:</span>
+            <div class="flex flex-wrap items-center gap-4">
+              <span class="flex items-center gap-1.5 font-bold text-rose-600">
+                <span class="w-3.5 h-3.5 rounded-full bg-rose-600 inline-block border-2 border-white shadow-sm"></span> 🚨 Urgente
+              </span>
+              <span class="flex items-center gap-1.5 font-bold text-amber-600">
+                <span class="w-3.5 h-3.5 rounded-full bg-amber-500 inline-block border-2 border-white shadow-sm"></span> ⚠️ Pendiente
+              </span>
+              <span class="flex items-center gap-1.5 font-bold text-emerald-700">
+                <span class="w-3.5 h-3.5 rounded-full bg-emerald-600 inline-block border-2 border-white shadow-sm"></span> ✅ Atendido
+              </span>
+              <span class="flex items-center gap-1.5 font-bold text-sky-700">
+                <span class="w-3.5 h-3.5 rounded-full bg-sky-600 inline-block border-2 border-white shadow-sm"></span> ♻️ Ecopunto
+              </span>
+              <span class="flex items-center gap-1.5 font-bold text-purple-700">
+                <span class="w-3.5 h-3.5 rounded-full bg-purple-600 inline-block border-2 border-white shadow-sm"></span> 🚛 Ruta del Camión
+              </span>
+            </div>
+          </div>
+
+          <!-- Feed de Últimos Reportes -->
+          <div class="glass-panel-rich rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                <span>📋</span> Reportes Vecinales en Loreto
+              </h3>
+              <span class="text-xs text-slate-400">Haz clic en una tarjeta para ubicar y abrir el punto en el mapa</span>
+            </div>
+            <div id="reports-feed" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-72 overflow-y-auto pr-1"></div>
+          </div>
+        </div>
+
+        <!-- Formulario para Publicar Reporte (5 columnas con Borde Resplandeciente) -->
+        <div id="reportar-form" class="lg:col-span-5 glass-panel-rich rounded-3xl p-6 sm:p-8 shadow-2xl relative">
+          
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-rose-500 to-amber-500 text-white flex items-center justify-center text-xl font-bold shadow-md">
+              🚨
+            </div>
+            <div>
+              <h3 class="font-display font-extrabold text-xl text-slate-900">Reportar Basura en Loreto</h3>
+              <p class="text-xs text-slate-500">Sube una foto y ayuda a mantener limpia nuestra región</p>
+            </div>
+          </div>
+
+          <!-- Indicador de Ubicación en el Formulario -->
+          <div id="form-location-badge" class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-500 text-xs font-medium flex items-center gap-2 mb-4">
+            <span>👆 Haz clic en el mapa para marcar las coordenadas del reporte.</span>
+          </div>
+
+          <form id="trash-report-form" class="space-y-4">
+            <input type="hidden" id="report-lat">
+            <input type="hidden" id="report-lng">
+            <input type="hidden" id="report-photo-url">
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Tipo de Problema / Residuo *</label>
+              <select id="report-waste-type" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white">
+                <option value="Acumulación clandestina de bolsas">Bolsas de basura acumuladas fuera de horario</option>
+                <option value="Basura regada por perros/animales">Basura destrozada y regada por animales</option>
+                <option value="Escombros y restos de construcción">Escombros, desmonte y ramas de palmeras</option>
+                <option value="Plásticos acumulados en canal/río">Plásticos y botellas atorando canaletas o río</option>
+                <option value="Residuos orgánicos de pescado/frutas">Restos de pescado/frutas con mal olor y moscas</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Sector en Loreto *</label>
+                <select id="report-sector" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white">
+                  <option value="Sector 1 - Casco Central (Iquitos, Loreto)">Sector 1: Casco Central / Plaza de Armas</option>
+                  <option value="Sector 2 - Los Pinos / Punchana (Loreto)">Sector 2: Los Pinos / Punchana</option>
+                  <option value="Sector 3 - Ribera y Malecón Tarapacá (Loreto)">Sector 3: Ribera Río Itaya y Malecón</option>
+                  <option value="Sector 4 - Zona Mercado Modelo (Loreto)">Sector 4: Zona Mercado Modelo</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Nivel de Urgencia</label>
+                <select id="report-urgency" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white">
+                  <option value="urgent">🚨 Muy Urgente (Foco infeccioso)</option>
+                  <option value="pending" selected>⚠️ Pendiente de Recojo</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Calle / Referencia en Loreto *</label>
+              <input type="text" id="report-address" required placeholder="Ej. Jr. Próspero con Requena, frente a la bodega en Iquitos" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white">
+            </div>
+
+            <!-- Subida de Foto -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Foto de la Basura *</label>
+              
+              <div id="photo-preview-container" class="hidden relative mb-2 rounded-xl overflow-hidden border border-slate-200 max-h-40">
+                <img id="photo-preview" src="" alt="Vista previa de basura" class="w-full h-40 object-cover">
+                <button type="button" id="remove-photo-btn" class="absolute top-2 right-2 bg-slate-900/80 text-white rounded-full p-1.5 text-xs hover:bg-slate-900 transition">✕ Quitar</button>
+              </div>
+
+              <label class="flex flex-col items-center justify-center p-4 border-2 border-dashed border-emerald-400 rounded-2xl bg-emerald-50/70 hover:bg-emerald-50 cursor-pointer transition shadow-inner">
+                <span class="text-2xl mb-1">📷</span>
+                <span class="text-xs font-bold text-emerald-800">Toma una foto o súbela desde tu galería</span>
+                <span class="text-[11px] text-slate-500 mt-0.5">JPG, PNG o WEBP (Máx 5MB)</span>
+                <input type="file" id="report-photo-file" accept="image/*" class="hidden">
+              </label>
+
+              <div class="mt-2">
+                <span class="text-[11px] text-slate-500 font-medium block mb-1">O selecciona una foto de prueba rápida:</span>
+                <div class="flex gap-2">
+                  <button type="button" class="sample-photo-btn px-2.5 py-1 rounded-lg bg-white hover:bg-emerald-100 text-[11px] font-semibold text-slate-700 border border-slate-200 transition shadow-sm" data-url="https://images.unsplash.com/photo-1605600659873-d808a13e4d2a?auto=format&fit=crop&w=700&q=80">
+                    🗑️ Montículo
+                  </button>
+                  <button type="button" class="sample-photo-btn px-2.5 py-1 rounded-lg bg-white hover:bg-emerald-100 text-[11px] font-semibold text-slate-700 border border-slate-200 transition shadow-sm" data-url="https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=700&q=80">
+                    💧 En Canal
+                  </button>
+                  <button type="button" class="sample-photo-btn px-2.5 py-1 rounded-lg bg-white hover:bg-emerald-100 text-[11px] font-semibold text-slate-700 border border-slate-200 transition shadow-sm" data-url="https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?auto=format&fit=crop&w=700&q=80">
+                    🧱 Desmonte
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Descripción / Detalles adicionales</label>
+              <textarea id="report-desc" rows="2" placeholder="Ej. Las lluvias aumentaron los malos olores y los animales abrieron las bolsas..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white"></textarea>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Tu Nombre o Alias (Opcional)</label>
+              <input type="text" id="report-author" placeholder="Ej. Rosa M. o déjalo vacío para 'Vecino de Loreto'" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white">
+            </div>
+
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-600/35 transition flex items-center justify-center gap-2">
+              <span>📢</span>
+              <span>Publicar Reporte en el Mapa de Loreto</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN 2: HORARIOS Y RUTAS (FONDO REALISTA DE COMUNIDAD LIMPIA) ================= -->
+  <section id="horarios-rutas" class="py-16 lg:py-24 bg-photo-clean-community relative border-y border-emerald-200/60">
+    
+    <!-- Resplandor Ambiental -->
+    <div class="ambient-glow glow-amber w-96 h-96 top-10 left-10"></div>
+    <div class="ambient-glow glow-emerald w-96 h-96 bottom-10 right-10"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-3 border border-emerald-300 shadow-sm backdrop-blur">
+          <span>⏰</span> Evita Sacar la Basura Tarde en Loreto
+        </div>
+        <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Horarios y Rutas Exactas del Camión Recolector - Loreto
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-3">
+          Sacar la basura a tiempo evita que la rompan los perros, que la lluvia de la selva la arrastre a los canales y previene multas vecinales. Selecciona tu sector en Loreto:
+        </p>
+      </div>
+
+      <!-- Selector Interactivo Decorado -->
+      <div class="max-w-xl mx-auto mb-10">
+        <label for="sector-select" class="block text-xs font-extrabold uppercase tracking-wider text-slate-700 text-center mb-2">
+          ¿En qué sector de Loreto vives?
+        </label>
+        <div class="relative">
+          <select id="sector-select" class="w-full px-5 py-4 rounded-2xl bg-white/95 border-2 border-emerald-500/50 text-slate-900 font-bold text-sm shadow-xl shadow-emerald-900/10 focus:ring-4 focus:ring-emerald-200 focus:outline-none transition appearance-none backdrop-blur">
+            <option value="sector1" selected>📍 Sector 1: Casco Urbano y Plaza de Armas de Iquitos (Loreto)</option>
+            <option value="sector2">📍 Sector 2: Barrio Los Pinos y Punchana (Loreto - Nocturno)</option>
+            <option value="sector3">📍 Sector 3: Ribera del Río Itaya, Malecón y Bellavista (Loreto)</option>
+            <option value="sector4">📍 Sector 4: Mercado Modelo y Zona Comercial (Iquitos - Doble Turno)</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-emerald-700 font-bold text-base">
+            ▼
+          </div>
+        </div>
+      </div>
+
+      <!-- Ficha Informativa con Efecto Cristalino -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-12">
+        
+        <div class="lg:col-span-5 glass-panel-rich rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Monitor en Vivo Loreto</span>
+              <div id="truck-live-status" class="px-3 py-1.5 rounded-full text-xs font-bold bg-amber-500 text-white shadow-sm flex items-center gap-1.5">
+                Calculando estado...
+              </div>
+            </div>
+
+            <h3 id="sector-title-display" class="font-display font-extrabold text-2xl text-slate-900 mb-2">
+              Sector 1: Casco Urbano y Plaza de Armas de Iquitos (Loreto)
+            </h3>
+
+            <div class="p-4 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 text-xs text-emerald-950 mb-6 shadow-inner">
+              <p id="truck-countdown-text" class="leading-relaxed">
+                Calculando tiempo para la próxima recolección...
+              </p>
+            </div>
+
+            <div class="space-y-3 text-xs">
+              <div class="flex items-center justify-between py-2 border-b border-slate-100">
+                <span class="text-slate-500">📅 Días de paso:</span>
+                <span id="sector-days-display" class="font-bold text-slate-800">Lunes, Miércoles y Viernes</span>
+              </div>
+              <div class="flex items-center justify-between py-2 border-b border-slate-100">
+                <span class="text-slate-500">⏰ Horario de recolección:</span>
+                <span id="sector-hours-display" class="font-bold text-emerald-700">06:00 AM a 08:30 AM</span>
+              </div>
+              <div class="flex items-center justify-between py-2 border-b border-slate-100">
+                <span class="text-slate-500">🚛 Unidad asignada:</span>
+                <span id="sector-truck-display" class="font-bold text-slate-800">CAM-01 (Compactador Maynas)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-200">
+            <p class="text-[11px] text-slate-600 italic flex items-start gap-1.5">
+              <span>💡</span>
+              <span id="sector-tip-display">Saca tus bolsas cerradas entre 05:30 AM y 06:00 AM. ¡Nunca las dejes en la noche anterior para cuidar las calles de Loreto!</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 glass-panel-rich rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                <span>🚏</span> Paradas y Tiempos Estimados del Camión en Loreto
+              </h3>
+              <button onclick="setMapMode('truck')" class="text-xs font-bold text-emerald-700 hover:underline">
+                Ver recorrido en el mapa arriba ↗
+              </button>
+            </div>
+
+            <p class="text-xs text-slate-500 mb-4">
+              La cuadrilla recorre esta ruta fija en Loreto. Te recomendamos dejar tus residuos en los canastillos altos 30 minutos antes de la hora indicada.
+            </p>
+
+            <ul id="sector-stops-display" class="space-y-1 mb-6"></ul>
+          </div>
+
+          <!-- Imagen Realista del Camión Recolector con Gradiente Profundo -->
+          <div class="relative rounded-2xl overflow-hidden h-44 border border-slate-200 mt-4 shadow-md">
+            <img src="https://images.unsplash.com/photo-1528323273322-d81458248d40?auto=format&fit=crop&w=900&q=80" alt="Recolección ordenada en Loreto" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-900/30 to-transparent flex items-end p-4">
+              <p class="text-white text-xs font-bold drop-shadow">
+                “El carro pasa puntual. Cumple con tu horario y mantendremos limpia la bella región Loreto.”
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 4 Reglas de Oro Decoradas -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="glass-panel-rich rounded-2xl p-5 flex items-start gap-3 shadow-md">
+          <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-xl flex-shrink-0 font-bold border border-amber-300">1</div>
+          <div>
+            <h4 class="font-bold text-xs text-slate-900 mb-1">Doble Nudo en Bolsas</h4>
+            <p class="text-[11px] text-slate-600">Usa bolsas gruesas bien amarradas para evitar derrames por la humedad de Loreto.</p>
+          </div>
+        </div>
+        <div class="glass-panel-rich rounded-2xl p-5 flex items-start gap-3 shadow-md">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-xl flex-shrink-0 font-bold border border-emerald-300">2</div>
+          <div>
+            <h4 class="font-bold text-xs text-slate-900 mb-1">30 Minutos Antes</h4>
+            <p class="text-[11px] text-slate-600">Sácala solo media hora antes del paso del camión. Nunca días antes.</p>
+          </div>
+        </div>
+        <div class="glass-panel-rich rounded-2xl p-5 flex items-start gap-3 shadow-md">
+          <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-800 flex items-center justify-center text-xl flex-shrink-0 font-bold border border-sky-300">3</div>
+          <div>
+            <h4 class="font-bold text-xs text-slate-900 mb-1">En Canastillo Alto</h4>
+            <p class="text-[11px] text-slate-600">Colócala en altura para que los animales no destrocen las bolsas en las veredas.</p>
+          </div>
+        </div>
+        <div class="glass-panel-rich rounded-2xl p-5 flex items-start gap-3 shadow-md">
+          <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-800 flex items-center justify-center text-xl flex-shrink-0 font-bold border border-rose-300">4</div>
+          <div>
+            <h4 class="font-bold text-xs text-slate-900 mb-1">Lluvias Tropicales</h4>
+            <p class="text-[11px] text-slate-600">Bajo lluvia intensa amazónica no la dejes en el piso: terminará tapando el drenaje.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN 3: VIDEOS CORTOS (FONDO REALISTA DE RÍO AMAZÓNICO) ================= -->
+  <section id="separacion-residuos" class="py-16 lg:py-24 bg-photo-loreto-river relative overflow-hidden">
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-3 border border-emerald-300 shadow-sm backdrop-blur">
+            <span>🎥</span> Educación Ambiental Práctica &bull; Loreto
+          </div>
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Aprende a Separar tus Residuos en Casa
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base mt-2 max-w-2xl">
+            El 70% de la basura que tiramos en la selva puede convertirse en abono fértil o nuevos materiales si aprendemos a clasificarla correctamente.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-2xl glass-panel-rich max-w-md shadow-md">
+          <p class="font-display italic text-xs text-emerald-900">
+            “Separar la basura no te quita tiempo: le regala futuro a los ríos y bosques de nuestra querida región Loreto.”
+          </p>
+        </div>
+      </div>
+
+      <!-- 4 Videos Cortos Educativos con Tarjetas Enriquecidas -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        
+        <div class="glass-panel-rich rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="relative overflow-hidden cursor-pointer" onclick="openVideoModal('Las 4 Bolsas para Separar en Casa', 'E43wJ6u853k', 'Aprende a clasificar en Orgánicos, Plásticos, Papel y No aprovechables en tu hogar de Loreto.')">
+              <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=600&q=80" alt="Separación de residuos en Loreto" class="w-full h-44 object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute inset-0 bg-slate-900/35 flex items-center justify-center group-hover:bg-slate-900/20 transition">
+                <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xl shadow-lg pl-1 group-hover:scale-110 transition border-2 border-white">▶</div>
+              </div>
+              <span class="absolute bottom-2 right-2 bg-slate-950/80 text-white text-[10px] font-bold px-2 py-0.5 rounded backdrop-blur">3:15 min</span>
+            </div>
+            <div class="p-5">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Guía Inicial</span>
+              <h3 class="font-bold text-slate-900 text-sm mt-2 mb-1">Las 4 Bolsas del Hogar</h3>
+              <p class="text-xs text-slate-500">Cómo organizar los tachos en casa sin ocupar espacio ni atraer moscas.</p>
+            </div>
+          </div>
+          <div class="p-5 pt-0">
+            <button onclick="openVideoModal('Las 4 Bolsas para Separar en Casa', 'E43wJ6u853k', 'Aprende a clasificar en Orgánicos, Plásticos, Papel y No aprovechables.')" class="w-full py-2 bg-slate-100 hover:bg-emerald-600 hover:text-white rounded-xl text-xs font-bold text-slate-700 transition flex items-center justify-center gap-1.5 shadow-sm">
+              <span>Ver video corto</span> ↗
+            </button>
+          </div>
+        </div>
+
+        <div class="glass-panel-rich rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="relative overflow-hidden cursor-pointer" onclick="openVideoModal('Cómo Preparar Plásticos y Latas', 'VlRVPum9cp4', 'Lava y enjuaga botellas y latas para que no huelan mal, aplástalas para ahorrar espacio y deja las tapas puestas.')">
+              <img src="https://images.unsplash.com/photo-1526951521990-620dc14c214b?auto=format&fit=crop&w=600&q=80" alt="Reciclaje de botellas y latas" class="w-full h-44 object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute inset-0 bg-slate-900/35 flex items-center justify-center group-hover:bg-slate-900/20 transition">
+                <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xl shadow-lg pl-1 group-hover:scale-110 transition border-2 border-white">▶</div>
+              </div>
+              <span class="absolute bottom-2 right-2 bg-slate-950/80 text-white text-[10px] font-bold px-2 py-0.5 rounded backdrop-blur">2:40 min</span>
+            </div>
+            <div class="p-5">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-sky-700 bg-sky-50 px-2 py-0.5 rounded border border-sky-200">Técnica Limpia</span>
+              <h3 class="font-bold text-slate-900 text-sm mt-2 mb-1">Lavar, Aplastar y Tapar</h3>
+              <p class="text-xs text-slate-500">La regla básica para que las botellas plásticas no atraigan plagas en el calor.</p>
+            </div>
+          </div>
+          <div class="p-5 pt-0">
+            <button onclick="openVideoModal('Cómo Preparar Plásticos y Latas', 'VlRVPum9cp4', 'Lava y enjuaga botellas y latas para que no huelan mal.')" class="w-full py-2 bg-slate-100 hover:bg-emerald-600 hover:text-white rounded-xl text-xs font-bold text-slate-700 transition flex items-center justify-center gap-1.5 shadow-sm">
+              <span>Ver video corto</span> ↗
+            </button>
+          </div>
+        </div>
+
+        <div class="glass-panel-rich rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="relative overflow-hidden cursor-pointer" onclick="openVideoModal('Pilas, Focos y Peligrosos en Loreto', 'YiHTNfKJwAw', 'Una pila arrojada a la cuenca de Loreto contamina miles de litros de agua. Llévalas al punto RAEE de Maynas.')">
+              <img src="https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?auto=format&fit=crop&w=600&q=80" alt="Residuos peligrosos en Loreto" class="w-full h-44 object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute inset-0 bg-slate-900/35 flex items-center justify-center group-hover:bg-slate-900/20 transition">
+                <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xl shadow-lg pl-1 group-hover:scale-110 transition border-2 border-white">▶</div>
+              </div>
+              <span class="absolute bottom-2 right-2 bg-slate-950/80 text-white text-[10px] font-bold px-2 py-0.5 rounded backdrop-blur">3:00 min</span>
+            </div>
+            <div class="p-5">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">¡Cuidado!</span>
+              <h3 class="font-bold text-slate-900 text-sm mt-2 mb-1">Pilas, Medicinas y Aceite</h3>
+              <p class="text-xs text-slate-500">Por qué nunca debes arrojarlos al río ni a la basura común en Loreto.</p>
+            </div>
+          </div>
+          <div class="p-5 pt-0">
+            <button onclick="openVideoModal('Pilas, Focos y Peligrosos en Loreto', 'YiHTNfKJwAw', 'Una pila arrojada a la basura común contamina agua.')" class="w-full py-2 bg-slate-100 hover:bg-emerald-600 hover:text-white rounded-xl text-xs font-bold text-slate-700 transition flex items-center justify-center gap-1.5 shadow-sm">
+              <span>Ver video corto</span> ↗
+            </button>
+          </div>
+        </div>
+
+        <div class="glass-panel-rich rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="relative overflow-hidden cursor-pointer" onclick="openVideoModal('Compostaje Amazónico en Casa', 'bX3kZ708Y_4', 'Transforma cáscaras de plátano bellaco, yuca y frutas amazónicas en abono fértil para tus plantas.')">
+              <img src="https://images.unsplash.com/photo-1597348989645-46b190ce4918?auto=format&fit=crop&w=600&q=80" alt="Compostaje amazónico en Loreto" class="w-full h-44 object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute inset-0 bg-slate-900/35 flex items-center justify-center group-hover:bg-slate-900/20 transition">
+                <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xl shadow-lg pl-1 group-hover:scale-110 transition border-2 border-white">▶</div>
+              </div>
+              <span class="absolute bottom-2 right-2 bg-slate-950/80 text-white text-[10px] font-bold px-2 py-0.5 rounded backdrop-blur">4:10 min</span>
+            </div>
+            <div class="p-5">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Abono Orgánico</span>
+              <h3 class="font-bold text-slate-900 text-sm mt-2 mb-1">Compostaje Amazónico</h3>
+              <p class="text-xs text-slate-500">Convierte las cáscaras de frutas amazónicas en tierra fértil.</p>
+            </div>
+          </div>
+          <div class="p-5 pt-0">
+            <button onclick="openVideoModal('Compostaje Amazónico en Casa', 'bX3kZ708Y_4', 'Transforma cáscaras de plátano y frutas en abono.')" class="w-full py-2 bg-slate-100 hover:bg-emerald-600 hover:text-white rounded-xl text-xs font-bold text-slate-700 transition flex items-center justify-center gap-1.5 shadow-sm">
+              <span>Ver video corto</span> ↗
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Guía y Juego Interactivo -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <div class="lg:col-span-6 glass-panel-rich rounded-3xl p-6 sm:p-8 shadow-xl">
+          <h3 class="font-display font-extrabold text-xl text-slate-900 mb-2">
+            Código Oficial de Separación de Residuos - Loreto
+          </h3>
+          <p class="text-xs text-slate-500 mb-6">Aprende qué va en cada contenedor en nuestra comunidad:</p>
+
+          <div class="space-y-3">
+            <div class="p-3.5 rounded-2xl bg-emerald-50/90 border border-emerald-300 flex items-start gap-3 shadow-sm">
+              <span class="text-3xl">🟢</span>
+              <div>
+                <h4 class="font-bold text-xs text-emerald-900 uppercase">Tacho Verde: Residuos Orgánicos Amazónicos</h4>
+                <p class="text-xs text-emerald-800 mt-0.5">Cáscaras de plátano bellaco, aguaje, camu camu, yuca, hojas secas y café. (Ideales para compost).</p>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-sky-50/90 border border-sky-300 flex items-start gap-3 shadow-sm">
+              <span class="text-3xl">🔵</span>
+              <div>
+                <h4 class="font-bold text-xs text-sky-900 uppercase">Tacho Azul: Plásticos y Metales</h4>
+                <p class="text-xs text-sky-800 mt-0.5">Botellas descartables PET, envases limpios, latas de conserva enjuagadas.</p>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-amber-50/90 border border-amber-300 flex items-start gap-3 shadow-sm">
+              <span class="text-3xl">🟡</span>
+              <div>
+                <h4 class="font-bold text-xs text-amber-900 uppercase">Tacho Amarillo: Papel y Cartón Limpio</h4>
+                <p class="text-xs text-amber-800 mt-0.5">Cajas de cartón desarmadas, periódicos y cuadernos viejos secos.</p>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-100/90 border border-slate-300 flex items-start gap-3 shadow-sm">
+              <span class="text-3xl">⚪</span>
+              <div>
+                <h4 class="font-bold text-xs text-slate-800 uppercase">Tacho Gris / Negro: No Aprovechables</h4>
+                <p class="text-xs text-slate-600 mt-0.5">Papel higiénico, servilletas usadas, cajas engrasadas, empaques metalizados.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini Juego Interactivo -->
+        <div class="lg:col-span-6 bg-gradient-to-br from-white/95 via-emerald-50/80 to-teal-50/90 rounded-3xl p-6 sm:p-8 border-2 border-emerald-400/40 shadow-xl backdrop-blur">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">🎮</span>
+              <div>
+                <h3 class="font-display font-extrabold text-lg text-slate-900">Juego Interactivo: ¿A qué tacho va?</h3>
+                <p class="text-xs text-slate-500">Reto ecológico para los vecinos de Loreto</p>
+              </div>
+            </div>
+            <span class="text-xs font-extrabold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
+              Reto Loreto
+            </span>
+          </div>
+
+          <div id="quiz-item-card" class="bg-white/95 rounded-2xl p-6 border border-emerald-200 shadow-md"></div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN 4: PUNTOS DE RECICLAJE (FONDO REALISTA DE VEGETACIÓN AMAZÓNICA) ================= -->
+  <section id="puntos-reciclaje" class="py-16 lg:py-24 bg-photo-rainforest-leaves relative overflow-hidden border-t border-emerald-100">
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100 text-sky-800 text-xs font-bold mb-3 border border-sky-300 shadow-sm backdrop-blur">
+          <span>♻️</span> Economía Circular en Loreto
+        </div>
+        <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Directorio de Puntos de Reciclaje Vecinales en Loreto
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-2">
+          ¿Tienes botellas plásticas, latas, vidrio, cartón o aparatos electrónicos en desuso en Iquitos o distritos de Loreto? Llévalos a estos ecopuntos autorizados:
+        </p>
+      </div>
+
+      <div id="recycling-points-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"></div>
+
+      <!-- Banner de Respeto a los Recicladores con Borde Dorado -->
+      <div class="rounded-3xl bg-gradient-to-r from-emerald-900 via-teal-900 to-emerald-950 text-white p-6 sm:p-10 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 border-2 border-emerald-400/30 relative overflow-hidden">
+        <div class="ambient-glow glow-emerald w-72 h-72 -top-10 -right-10"></div>
+        <div class="max-w-2xl relative z-10">
+          <span class="text-xs font-bold uppercase tracking-widest text-emerald-300">Valorando su trabajo diario en Loreto</span>
+          <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-white mt-1 mb-2">
+            Respeta a los recicladores y recolectores de Loreto
+          </h3>
+          <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
+            Entregar tus materiales secos y limpios cuida el río Amazonas y dignifica la labor de las familias recicladoras de Loreto. Nunca coloques vidrios rotos ni agujas sueltas en bolsas ordinarias.
+          </p>
+        </div>
+        <a href="https://wa.me/51965443322?text=Hola,%20quisiera%20coordinar%20la%20entrega%20de%20materiales%20reciclables%20en%20Loreto" target="_blank" class="px-6 py-3.5 rounded-xl bg-white hover:bg-emerald-50 text-slate-900 font-extrabold text-xs uppercase tracking-wider transition shadow-xl flex-shrink-0 flex items-center gap-2 border border-emerald-300 relative z-10">
+          <span>💬</span> Coordinar Acopio por WhatsApp (Loreto)
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN 5: CAMPAÑAS Y MINGAS (FONDO REALISTA DE ACCIÓN AMBIENTAL) ================= -->
+  <section id="jornadas-limpieza" class="py-16 lg:py-24 bg-photo-volunteer-action relative overflow-hidden border-t border-slate-200">
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-3 border border-emerald-300 shadow-sm backdrop-blur">
+            <span>🤝</span> Mingas Comunitarias de Limpieza &bull; Loreto
+          </div>
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            ¡Súmate a las Jornadas de Limpieza Vecinal en Loreto!
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base mt-2 max-w-2xl">
+            Recuperemos las riberas del río Itaya y Nanay y las calles de nuestros distritos. Participar es cuidar la salud de tu familia y preservar la Amazonía de Loreto.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3 glass-panel-rich p-3 rounded-2xl shadow-sm">
+          <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-2xl font-bold border border-amber-300 shadow-sm">🧤</div>
+          <div>
+            <span class="text-xs text-slate-400 block font-semibold">Equipamiento provisto</span>
+            <span class="text-xs font-bold text-slate-800">Se entregan guantes, bolsas y refrigerio en Loreto</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Convocatorias + Formulario -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- Campaña 1 -->
+          <div class="glass-panel-rich rounded-3xl p-6 sm:p-8 relative overflow-hidden flex flex-col md:flex-row gap-6 shadow-xl">
+            <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=600&q=80" alt="Voluntarios limpiando en Loreto" class="w-full md:w-48 h-48 rounded-2xl object-cover flex-shrink-0 shadow-md">
+            <div class="flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="text-xs font-extrabold px-3 py-1 rounded-full bg-rose-100 text-rose-800 border border-rose-300">
+                    Próximo Sábado 15
+                  </span>
+                  <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">07:30 AM</span>
+                </div>
+                <h3 class="font-display font-extrabold text-xl text-slate-900 mb-1">
+                  Gran Minga Amazónica: Recuperación de la Ribera del Río Itaya (Loreto)
+                </h3>
+                <p class="text-xs text-slate-600 mb-4">
+                  Retiro masivo de plásticos acumulados, limpieza de canaletas y siembra de 40 plantones nativos para proteger la orilla del río en Loreto.
+                </p>
+                <div class="space-y-1 text-xs text-slate-500 mb-4">
+                  <p>📍 <strong>Punto de encuentro:</strong> Bajada del Malecón Tarapacá frente al puerto de Iquitos</p>
+                  <p>🎯 <strong>Meta comunitaria:</strong> 500 kg de plásticos recuperados de la cuenca</p>
+                </div>
+              </div>
+              <a href="#inscripcion-voluntarios" class="inline-flex items-center gap-2 text-xs font-extrabold text-emerald-700 hover:text-emerald-800">
+                Inscribirme a esta minga en Loreto →
+              </a>
+            </div>
+          </div>
+
+          <!-- Campaña 2 -->
+          <div class="glass-panel-rich rounded-3xl p-6 sm:p-8 relative overflow-hidden flex flex-col md:flex-row gap-6 shadow-xl">
+            <img src="https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?auto=format&fit=crop&w=600&q=80" alt="Limpieza de calles en Loreto" class="w-full md:w-48 h-48 rounded-2xl object-cover flex-shrink-0 shadow-md">
+            <div class="flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="text-xs font-extrabold px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
+                    Domingo 23
+                  </span>
+                  <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">08:00 AM</span>
+                </div>
+                <h3 class="font-display font-extrabold text-xl text-slate-900 mb-1">
+                  Operación "Calles Sin Desmonte" Punchana y San Juan (Loreto)
+                </h3>
+                <p class="text-xs text-slate-600 mb-4">
+                  Despeje de cunetas y veredas obstruidas por ramas de palmeras y desmonte para evitar inundaciones en las lluvias de Loreto.
+                </p>
+                <div class="space-y-1 text-xs text-slate-500 mb-4">
+                  <p>📍 <strong>Punto de encuentro:</strong> Parque Central de Los Pinos (Punchana, Loreto)</p>
+                  <p>🎯 <strong>Meta comunitaria:</strong> 12 cuadras limpias de focos infecciosos</p>
+                </div>
+              </div>
+              <a href="#inscripcion-voluntarios" class="inline-flex items-center gap-2 text-xs font-extrabold text-emerald-700 hover:text-emerald-800">
+                Inscribirme a esta minga en Loreto →
+              </a>
+            </div>
+          </div>
+
+          <!-- Tarjeta de Frase Reflexiva Decorada -->
+          <div class="quote-card-decor p-6 sm:p-7 border border-emerald-300 shadow-md">
+            <p class="font-display italic text-base sm:text-lg text-emerald-950 text-center leading-relaxed">
+              “No heredamos la Tierra ni los ríos de nuestros antepasados; los tomamos prestados de nuestros hijos. Cuidar Loreto es cuidar su futuro.”
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Formulario de Voluntarios -->
+        <div id="inscripcion-voluntarios" class="lg:col-span-5 glass-panel-rich rounded-3xl p-6 sm:p-8 shadow-2xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center text-xl font-bold shadow-md">✍️</div>
+            <div>
+              <h3 class="font-display font-extrabold text-xl text-slate-900">Inscríbete como Voluntario(a) en Loreto</h3>
+              <p class="text-xs text-slate-500">Únete a la brigada comunitaria de tu sector</p>
+            </div>
+          </div>
+
+          <form id="volunteer-signup-form" class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Nombre Completo *</label>
+              <input type="text" id="vol-name" required placeholder="Ej. Sesia Ahuanari / Carlos Gómez" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">WhatsApp / Celular (Loreto) *</label>
+              <input type="tel" id="vol-phone" required placeholder="Ej. 965 443 322" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Jornada en Loreto en la que deseas participar *</label>
+              <select id="vol-campaign" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white">
+                <option value="Gran Minga Ribera del Río Itaya (Loreto)">Gran Minga Ribera del Río Itaya (Loreto - Sábado 15 - 07:30 AM)</option>
+                <option value="Operación Calles Sin Desmonte Punchana (Loreto)">Operación Calles Sin Desmonte Punchana (Loreto - Domingo 23 - 08:00 AM)</option>
+                <option value="En ambas jornadas en Loreto">¡Quiero participar en ambas jornadas en Loreto!</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">¿Qué puedes aportar o traer? (Opcional)</label>
+              <select id="vol-gear" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white">
+                <option value="¡Mis dos manos y energía!">¡Mis dos manos, energía y entusiasmo!</option>
+                <option value="Guantes gruesos y costales resistentes">Guantes gruesos y costales / bolsas resistentes</option>
+                <option value="Pala, machete de deshierbe o rastrillo">Pala, machete de deshierbe o rastrillo</option>
+                <option value="Agua / Refrescos regionales (camu camu / cocona)">Agua / Refrescos regionales para los brigadistas</option>
+              </select>
+            </div>
+
+            <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-300 text-[11px] text-emerald-800">
+              ✓ Te enviaremos un recordatorio por WhatsApp un día antes con el punto de encuentro en Loreto.
+            </div>
+
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-600/35 transition flex items-center justify-center gap-2">
+              <span>🎉</span>
+              <span>Confirmar Mi Participación en Loreto</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= ENLACE A PROYECTO RÍOS Y BOSQUES ================= -->
+  <section class="py-10 bg-gradient-to-r from-emerald-50 via-white to-teal-50 border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="text-3xl">🌱</span>
+        <div>
+          <h4 class="font-bold text-slate-900 text-sm">Proyecto de Conciencia Ambiental en Loreto</h4>
+          <p class="text-xs text-slate-500">Explora nuestro artículo complementario sobre la protección de cuencas amazónicas y bosques.</p>
+        </div>
+      </div>
+      <a href="conciencia-ambiental.html" class="px-5 py-2.5 bg-white hover:bg-emerald-50 border border-emerald-300 text-emerald-800 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-sm">
+        <span>📖</span> Ver "Conciencia de Ríos y Bosques" →
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= PIE DE PÁGINA (FONDO NOCTURNO AMAZÓNICO) ================= -->
+  <footer class="bg-gradient-to-b from-slate-950 via-[#0a1612] to-slate-950 text-slate-300 py-16 border-t border-emerald-900/40 relative overflow-hidden">
+    <div class="ambient-glow glow-emerald w-72 h-72 top-0 left-1/4 opacity-20"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-xl shadow-lg border border-emerald-400/40">🌿</div>
+            <div>
+              <span class="font-display font-extrabold text-lg text-white">EcoBarrio Loreto</span>
+              <span class="block text-xs text-emerald-400">Diseñado por <strong>Sesia Ahuanari</strong> &bull; Región Loreto</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed max-w-md mb-4">
+            Plataforma vecinal comunitaria desarrollada en Loreto dentro del programa <strong>ChicasTec Loreto &bull; Taller Integrador</strong> para fomentar la participación ciudadana, la erradicación de botaderos ilegales y la cultura del reciclaje responsable en la Amazonía peruana.
+          </p>
+          <p class="text-xs font-display italic text-emerald-300">
+            “Cuidar nuestro barrio y nuestros ríos amazónicos no es una opción: es el legado que dejamos a las próximas generaciones.”
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-widest text-white mb-4">Módulos del Sistema</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#mapa-reportes" class="hover:text-emerald-400 transition">📍 Mapa de Reportes Loreto</a></li>
+            <li><a href="#horarios-rutas" class="hover:text-emerald-400 transition">⏰ Rutas y Horarios del Camión</a></li>
+            <li><a href="#separacion-residuos" class="hover:text-emerald-400 transition">🎥 Videos de Separación de Residuos</a></li>
+            <li><a href="#puntos-reciclaje" class="hover:text-emerald-400 transition">♻️ Directorio de Ecopuntos Loreto</a></li>
+            <li><a href="#jornadas-limpieza" class="hover:text-emerald-400 transition">🤝 Brigadas de Limpieza Loreto</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-widest text-white mb-4">Contactos de Emergencia Loreto</h4>
+          <ul class="space-y-2 text-xs text-slate-400">
+            <li>🚛 <strong>Atención al Vecino / Limpieza Loreto:</strong> (065) 23-4567</li>
+            <li>🚨 <strong>Serenazgo Maynas (Loreto):</strong> 965 112 233</li>
+            <li>♻️ <strong>Asociación de Recicladores de Loreto:</strong> 965 443 322</li>
+            <li>🏥 <strong>Centro de Salud Iquitos:</strong> 106</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <p>© 2026 EcoBarrio Loreto &bull; Autora: Sesia Ahuanari &bull; ChicasTec Loreto Taller Integrador</p>
+        <p class="text-emerald-400 font-semibold">Tecnología con Propósito Social y Ambiental en Loreto, Perú 🌱</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MODALES Y NOTIFICACIONES ================= -->
+  
+  <div id="volunteer-modal" class="hidden fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-md flex items-center justify-center p-4">
+    <div id="volunteer-modal-card" class="max-w-md w-full"></div>
+  </div>
+
+  <div id="video-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div id="video-modal-body" class="max-w-2xl w-full"></div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Script Principal de la Aplicación -->
+  <script src="app.js"></script>
+
+</body>
+</html>
